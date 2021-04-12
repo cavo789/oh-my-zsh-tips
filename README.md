@@ -6,30 +6,42 @@
 
 ### General
 
-* There are plenty of plugins and themes to enhanced the bash experience (see below)
-* Spell correct: type a command like  `cd myFolder` (an existing one) but make a typo like `cd myfolder` or `cd myFoder` or anything else. Zsh will detect it and will suggest something like *Did you mean cd myFolder?*. To make this working, run `nano ~/.zshrc` and make sure to enable `ENABLE_CORRECTION` to true (uncomment the line) and write a new line like `export SPROMPT="You've typed %R, did you mean %r? [Yes, No, Abort, Edit] "` to customize the question as you want. *Run `source ~/.zshrc` to read the new configuration file if you've modified it.*
+* There are plenty of plugins and themes to enhance the bash experience (see below)
+* Spell correct: type a command like  `cd myFolder` (an existing one) but make a typo like `cd myfolder` or `cd myFoder` or anything else. Zsh will detect it and will suggest something like *Did you mean cd myFolder?*. To make this work, run `nano ~/.zshrc` and make sure to enable `ENABLE_CORRECTION` to true (uncomment the line) and write a new line like `export SPROMPT="You've typed %R, did you mean %r? [Yes, No, Abort, Edit] "` to customize the question as you want. *Run `source ~/.zshrc` to read the new configuration file if you've modified it.*
 * There is a special utility called `zmv` that will allow mass actions on files or folders like renaming `.tmp` files to `.bak` f.i. `zmv -n '(*).tmp' '${1}.bak'`.
+* Completion is provided with the `-` (minus sign) and after pressing the <kbd>tab</kbd> key. For instance, type `git commit -` or `docker-compose logs -` then press <kbd>
+* Chain commands with:
+    * `;` like in `clear ; ls` (run the first then the second)
+    * `||` like in `rm -rf node_modules/ || rm package-lock.json || yarn install` (`||` will exec the next command only if the previous one was successful)
+    * `|` to pipe the output like in `cat longfile.log | less` (similar to the `PAUSE` DOS command)
 * Special search patterns like:
   * `ls *(.x)` display the list of all executable files in the current folder
   * `ls */*(.x)` display the list of all executable files in a first-level subfolder
   * `ls **/*(.x)` display the list of all executable files, whatever the deep in the structure
+  * `ls -d */**(/)` list of all folders and subfolders (not deeper)
 
 ### Navigating
 
-* Run `mkdir` and `cd` in only one action: `take test/any/sub/folders` will create the folder and jump in it
+* The *autopushd* command helps you do `popd` after you use cd to go back to your previous directory: type f.i. `cd /usr/local/bin` to go there then type `popd` and you're back in your origin folder. `-` (the minus sign) is an alias of `popd`
+* Run `mkdir` and `cd` in only one action: `take test/any/sub/folders` will create the folder and jump in it (`take` is a function defined in `~/.oh-my-zsh/lib/functions.zsh`; we can create our owns)
 * You've a subfolder called `vendor`? No need to type `cd vendor`, `cd` is implicit; just type `vendor` and press <kbd>Enter</kbd> to jump inside
 * Inline glob expansion: type f.i. `cat */**/settings.json` **AND PRESS <kdb>TAB</kdb>** (not <kbd>enter</kbd>!), zsh will replace the pattern with all matched filenames. The cat instruction will then be something like `cat settings.json vendor/laravel/tinker/settings.json vendor/vlucas/phpdotenv/settings.json` (and many more perhaps). Before pressing <kbd>Enter</kbd>, you can navigate in the command and suppress a few filenames f.i.
 * Prompt completion: type `cd` followed by <kbd>enter</kbd> and you'll get the list of folders; you can select a name by navigating with the <kbd>tab</kbd> key
 * Type `cd ven` and press <kbd>tab</kbd>, Zsh will complete the folder name
-  
+* Type `cd /u/lo/b` and press <kbd>tab</kbd>, the path will be extended to `cd /usr/local/bin` because there is no doubt on the desired path. This is called the *fuzzy match* feature
+* Thanks to global aliases, type `cd ...` to go up two levels (the parent folder of the parent folder), `cd .....` for three levels up (equivalent of `cd ../../..`)
+
 ### History
 
-* The *autopushd* command helps you do `popd` after you use cd to go back to your previous directory: type f.i. `cd /usr/local/bin` to go there then type `popd` and you're back in your origin folder.
 * Type any command like `mkdir` followed by a space and press the <kbd>UP</kbd> or <kbd>DOWN</kbd> key to loop across the history.
 * Type `cd sto` and Zsh will display a command you've already used (like `cd storage/app/public/pictures`); just press the right arrow key and hop, the command will be completed so you just need to press <kbd>enter</kbd> to run it
 * Shared history: open more than one Zsh sessions, the history will be shared across all sessions
 * <kbd>ALT</kbd>-<kbd>/</kbd> to output the full CLI history
 * <kbd>CTRL</kbd>-<kbd>R</kbd> to show the list of commands in the history with navigation feature so we can select a previous command and press <kbd>Enter</kbd> to fire it
+
+### Not Zsh specific
+
+* Press <kbd>CTRL</kbd>-<kbd>L</kbd> to clear the screen (note: `clear` will clear the output history i.e. if we scroll to the first line, we'll not have previous commands while this is untrue with <kbd>CTRL</kbd>-<kbd>L</kbd>)
 
 ## Install zsh and oh-my-zsh
 
@@ -74,7 +86,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.
 Usage
 
 * Press <kbd>CTRL</kbd>-<kbd>R</kbd> and get a prompt with your history.
-* Get the full list of files under the current folder by typing `fzf` and get a list of files; press enter and the filename is selected.
+* Get the full list of files under the current folder by typing `fzf` and get a list of files; press <kbd>enter</kbd> and the filename is selected.
 * Use the `|` (pipe) to filter on a filename, interactively
 * and much more, take a look to the video tutorial: [https://www.youtube.com/watch?v=qgG5Jhi_Els](https://www.youtube.com/watch?v=qgG5Jhi_Els)
 
@@ -104,7 +116,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 ### Install powerlevel10k fonts
 
-Donwload the four fonts from [https://github.com/romkatv/powerlevel10k#manual-font-installation](https://github.com/romkatv/powerlevel10k#manual-font-installation): download one by one and click on the download file. Windows will open it and you'll get a windows with an `Install` button.
+Download the four fonts from [https://github.com/romkatv/powerlevel10k#manual-font-installation](https://github.com/romkatv/powerlevel10k#manual-font-installation): download one by one and click on the download file. Windows will open it and you'll get a windows with an `Install` button.
 
 This done, open the Windows Terminal settings and open the `settings.json` file. Add the `MesloLGS NF` font in the `defaults` section for `profiles`, like this:
 
