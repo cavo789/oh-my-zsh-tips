@@ -57,6 +57,38 @@ Note: each time a plugin has to be activated, you'll need to edit the `~/.zshrc`
 
 Edit the file and search for the `plugins=( ... )` array. Add the plugin name to the list. Save the file and the plugin will be loaded the next time you'll create a session.
 
+#### core plugins
+
+With core plugins, no installation are required since they're already there. We just need to activate them by adding their name in the `plugins=( ... )` array.
+
+##### composer
+
+> [https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/composer](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/composer)
+
+Add aliases for `composer`. For instance type `cu` instead of `composer update`.
+
+##### docker-compose
+
+> [https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-compose](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-compose)
+
+Add aliases for `docker-compose` like f.i. `dce` instead of `docker-compose exec`.
+
+##### git
+
+> [https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git)
+
+Add aliases for `git` like f.i. `gst` instead of `git status`.
+
+##### globalias
+
+> [https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/globalias](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/globalias)
+
+This one is a special one: you'll type any alias like `dce` then press the space bar and that alias will be expanded so you'll see what is behind (here, `docker-compose exec`). I like this because expanding an alias will allow you to always remember the real command behind, see it and don't have any doubt about "Uh oh, I don't remember well what was the real command".
+
+Example below with `la` followed by a space and expanded to `ls -lAh`:
+
+![globalias](./images/globalias.gif)
+
 #### zsh-autosuggestions
 
 > [https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
@@ -93,6 +125,16 @@ Usage
 ```bash
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf ; ~/.fzf/install
 ```
+
+#### zsh-you-should-use
+
+> [https://github.com/MichaelAquilina/zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use)
+
+How to learn which alias are already supported on your system? You always type commands like `git status`, `docker-compose exec` or any other ones but is there an alias for it?
+
+![You should use](./images/you-should-use.gif)
+
+In fact, the `zsh-you-should-use` make the opposite of `globalias` and this is fine! `zsh-you-should-use` will teach you about existing aliases and `globalias` will always remember you the real command behind an alias.
 
 ## Install the powerlevel10k theme
 
