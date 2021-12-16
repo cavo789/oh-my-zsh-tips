@@ -115,16 +115,46 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.
 
 > [https://github.com/junegunn/fzf](https://github.com/junegunn/fzf)
 
-Usage
-
-* Press <kbd>CTRL</kbd>-<kbd>R</kbd> and get a prompt with your history.
-* Get the full list of files under the current folder by typing `fzf` and get a list of files; press <kbd>enter</kbd> and the filename is selected.
-* Use the `|` (pipe) to filter on a filename, interactively
-* and much more, take a look to the video tutorial: [https://www.youtube.com/watch?v=qgG5Jhi_Els](https://www.youtube.com/watch?v=qgG5Jhi_Els)
+To install fzf:
 
 ```bash
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf ; ~/.fzf/install
 ```
+
+Much more tips? Take a look to the video tutorial: [https://www.youtube.com/watch?v=qgG5Jhi_Els](https://www.youtube.com/watch?v=qgG5Jhi_Els)
+
+
+##### CTRL-R and get your command history
+
+Press <kbd>CTRL</kbd>-<kbd>R</kbd> and get the list of all commands you've already fired. Start to type some letters to filter the list and once you've retrieve the desired command, select that one and press <kbd>ENTER</kbd> to select that command.
+
+##### CTRL-T and get the list of files
+
+Imagine you want to display the content of a file and you don't want to type the full path. <kbd>CTRL</kbd>-<kbd>T</kbd> is, here, the solution. By pressing these keys, you'll get the list of files in any child-folders. You can start to type and the list will be filtered. Press <kbd>ENTER</kbd> and the filename will be selected and displayed in the prompt.
+
+So, how to use it? Imagine you want to display the content of the file. Just start to type `cat `, press <kbd>CTRL</kbd>-<kbd>T</kbd>, select your file, press <kbd>ENTER</kbd> to select it and press once more <kbd>ENTER</kbd> so you'll run your command.
+
+![fzf - control-T](./images/fzf_ctrl_t.gif)
+
+The same result can be obtained with `cat $(fzf)` or even `cat **` followed by <kdb>TAB</kdb>.  `**` is thus a shortcut for `$(fzf)`.
+
+##### Select one or more files and do an action like opening it
+
+Here is a real world sample, you want to show the content of a file that is under a given folder but you don't know anymore where the file is and is exact name. Type `**` followed by <kbd>TAB</kbd> in the command below.
+
+```bash
+cat reponame/**
+```
+
+Better below: `fzf -m` will allow you to select multiple files (by using <kbd>TAB</kbd>) then, once your choice is done, press <kbd>ENTER</kbd>. The list of file name will be passed to the next pipe item which is `xargs code` here. So, Visual Studio code will be opened and each selected files too, each in his own tab.
+
+```bash
+fzf -m | xargs cat
+```
+
+![FZF - vscode](./images/fzf_xargs_vscode.gif)
+
+Note: if you known the file name (you want to open every `composer.json` file), just use `find . -maxdepth 2 -name composer.json | xargs code`. The `-maxdepth 2` option is to limit to the current folder and his first level child ones.
 
 #### zsh-you-should-use
 
